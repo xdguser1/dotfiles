@@ -1,0 +1,5 @@
+@girs/
+node_modules/
+icons/
+env.d.ts
+tsconfig.json

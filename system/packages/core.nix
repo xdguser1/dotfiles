@@ -1,0 +1,57 @@
+{
+  pkgs,
+  ...
+}:
+
+{
+  environment.systemPackages = with pkgs; [
+    acpi
+    bat
+    bluez
+    bluez-tools
+    brightnessctl
+    btop
+    cmake
+    cron
+    docker
+    eza
+    fastfetch
+    fd
+    file
+    fzf
+    gawk
+    gettext
+    glow
+    gnumake
+    gnupg
+    gnutar
+    gh
+    git
+    iotop
+    jq
+    libnotify
+    libgcc
+    lsof
+    p7zip
+    pciutils
+    playerctl
+    python313Packages.xmljson
+    ripgrep
+    sqlite
+    tmux
+    tree
+    udiskie
+    unzip
+    upower
+    usbutils
+    wayland-utils
+    wev
+    which
+    wl-clipboard
+    xz
+    yq-go
+    zip
+    zoxide
+    zsh
+  ];
+}
