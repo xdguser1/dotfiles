@@ -86,6 +86,7 @@ in {
       unset TARGD;
       '';
       fv = "fzf | xargs nvim";
+      fr = "function fr() { file=`rg $1 -H --files-with-matches | fzf`; if [ ! -z $file ]; then nvim $file; fi }; fr";
     };
 
     dirHashes = {
