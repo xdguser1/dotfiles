@@ -33,6 +33,10 @@ rec {
     "nix-command"
   ];
 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "poweroff";
+  };
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.displayManager.enable = true;
