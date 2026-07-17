@@ -32,6 +32,7 @@
     libnotify
     libgcc
     lsof
+    libxml2
     p7zip
     pciutils
     playerctl
