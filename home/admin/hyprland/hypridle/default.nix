@@ -10,7 +10,7 @@
         after_sleep_cmd     = "hyprctl dispatch dpms on";
         before_sleep_cmd    = "loginctl lock session";
         ignore_dbus_inhibit = false;
-        lock_cmd            = "pidof $lockProg || $lock";
+        lock_cmd            = "pidof hyprlock || hyprlock";
       };
 
       listener = [
@@ -21,7 +21,7 @@
         }
         {
           timeout    = 600;
-          on-timeout = "$lock";
+          on-timeout = "hyprlock";
         }
         {
           timeout    = 630;
