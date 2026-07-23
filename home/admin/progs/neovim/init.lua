@@ -58,10 +58,8 @@ vim.keymap.set('', '<S-A-right>', '<C-W>L', { remap = true; })
 vim.opt.backup      = false
 vim.opt.writebackup = false
 vim.opt.updatetime  = 1000
+vim.opt.signcolumn  = 'yes'
 
-vim.opt.signcolumn = 'yes'
-
-local keyset = vim.keymap.set
 function _G.check_back_space()
     local col = vim.fn.col('.') - 1
     return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
@@ -73,19 +71,19 @@ local opts = {
     expr             = true,
     replace_keycodes = false
 }
-keyset('i', '<TAB>',   'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-keyset('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', opts)
+vim.keymap.set('i', '<TAB>',   'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+vim.keymap.set('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', opts)
 
-keyset('i', '<c-j>',     '<Plug>(coc-snippets-expand-jump)')
-keyset('i', '<c-space>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], { silent = true, expr = true })
+vim.keymap.set('i', '<c-j>',     '<Plug>(coc-snippets-expand-jump)')
+vim.keymap.set('i', '<c-space>', 'coc#pum#visible() ? coc#pum#confirm() : coc#refresh()', { silent = true, expr = true })
 
-keyset('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
-keyset('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
+vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
+vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
 
-keyset('n', 'gd', '<Plug>(coc-definition)',      { silent = true })
-keyset('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
-keyset('n', 'gi', '<Plug>(coc-implementation)',  { silent = true })
-keyset('n', 'gr', '<Plug>(coc-references)',      { silent = true })
+vim.keymap.set('n', 'gd', '<Plug>(coc-definition)',      { silent = true })
+vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
+vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)',  { silent = true })
+vim.keymap.set('n', 'gr', '<Plug>(coc-references)',      { silent = true })
 
 function _G.show_docs()
     local cw = vim.fn.expand('<cword>')
@@ -97,19 +95,21 @@ function _G.show_docs()
         vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
     end
 end
-keyset('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
+local opts_coc = {silent = true, nowait = true, expr = true}
+vim.keymap.set('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
+vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-k>"', opts_coc)
+vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-m>"', opts_coc)
 
 vim.api.nvim_create_augroup('CocGroup', {})
 vim.api.nvim_create_autocmd('CursorHold', {
-    group = "CocGroup",
-    command = "silent call CocActionAsync('highlight')",
-    desc = "Highlight symbol under cursor on CursorHold"
+    group = 'CocGroup',
+    command = 'silent call CocActionAsync("highlight")',
+    desc = 'Highlight symbol under cursor on CursorHold'
 })
 
-keyset('n', '<leader>rn', '<Plug>(coc-rename)',           { silent = true })
-keyset('x', '<leader>f',  '<Plug>(coc-format-selected)',  { silent = true })
-keyset('n', '<leader>f',  '<Plug>(coc-format-selected)',  { silent = true })
-keyset('',  'gz',         '<Cmd>CocCommand explorer<CR>', { silent = true })
+vim.keymap.set('n', 'grn', '<Plug>(coc-rename)',           { silent = true })
+vim.keymap.set('x', 'gf',  '<Plug>(coc-format-selected)',  { silent = true })
+vim.keymap.set('',  'gz',  '<Cmd>CocCommand explorer<CR>', { silent = true })
 
 ----------------
 --  Gitsigns  --
@@ -190,38 +190,34 @@ require('gitsigns').setup({
         end)
 
         -- Actions
-        map('n', '<leader>hs', gitsigns.stage_hunk)
-        map('n', '<leader>hr', gitsigns.reset_hunk)
+        map('n', 'ghs', gitsigns.stage_hunk)
+        map('n', 'ghr', gitsigns.reset_hunk)
 
-        map('v', '<leader>hs', function()
+        map('v', 'ghs', function()
             gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end)
 
-        map('v', '<leader>hr', function()
+        map('v', 'ghr', function()
             gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end)
 
-        map('n', '<leader>hS', gitsigns.stage_buffer)
-        map('n', '<leader>hR', gitsigns.reset_buffer)
-        map('n', '<leader>hp', gitsigns.preview_hunk)
-        map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+        map('n', 'ghS', gitsigns.stage_buffer)
+        map('n', 'ghR', gitsigns.reset_buffer)
+        map('n', 'ghp', gitsigns.preview_hunk)
+        map('n', 'ghi', gitsigns.preview_hunk_inline)
 
-        map('n', '<leader>hb', function()
+        map('n', 'ghb', function()
             gitsigns.blame()
         end)
 
-        map('n', '<leader>hd', gitsigns.diffthis)
+        map('n', 'ghd', gitsigns.diffthis)
 
-        map('n', '<leader>hD', function()
+        map('n', 'ghD', function()
             gitsigns.diffthis('~')
         end)
 
-        map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
-        map('n', '<leader>hq', gitsigns.setqflist)
-
-        -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-        map('n', '<leader>tw', gitsigns.toggle_word_diff)
+        map('n', 'ghQ', function() gitsigns.setqflist('all') end)
+        map('n', 'ghq', gitsigns.setqflist)
 
         -- Text object
         map({'o', 'x'}, 'ih', gitsigns.select_hunk)
@@ -233,7 +229,7 @@ require('gitsigns').setup({
 -------------
 require('marks').setup({
     default_mappings   = true,
-    builtin_marks      = { ".", "<", ">", "^" },
+    builtin_marks      = { '.', '<', '>', '^' },
     cyclic             = true,
     force_write_shada  = false,
     refresh_interval   = 250,
@@ -243,14 +239,6 @@ require('marks').setup({
         builtin  = 8,
         bookmark = 20
     },
-    excluded_filetypes = {},
-    excluded_buftypes  = {},
-    bookmark_0 = {
-        sign      = "⚑",
-        virt_text = "hello world",
-        annotate  = false,
-    },
-    mappings = {}
 })
 
 -------------
@@ -310,8 +298,8 @@ require('tabby').setup({
 require('illuminate').configure({
     -- providers: provider used to get references in the buffer, ordered by priority
     providers = {
-        'lsp',
         'treesitter',
+        'lsp',
         'regex',
     },
     delay = 100,
@@ -339,60 +327,68 @@ require('illuminate').configure({
 --  Lualine  --
 ---------------
 require('lualine').setup({
-  options = {
-    icons_enabled = true,
-    theme         = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar     = {},
+    options = {
+        icons_enabled = true,
+        theme         = 'auto',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+            statusline = {},
+            winbar     = {},
+        },
+
+        ignore_focus         = {},
+        always_divide_middle = true,
+        always_show_tabline  = true,
+        globalstatus         = false,
+
+        refresh = {
+            statusline   = 1000,
+            tabline      = 1000,
+            winbar       = 1000,
+            refresh_time = 16, -- ~60fps
+            events       = {
+                'WinEnter',
+                'BufEnter',
+                'BufWritePost',
+                'SessionLoadPost',
+                'FileChangedShellPost',
+                'VimResized',
+                'Filetype',
+                'CursorMoved',
+                'CursorMovedI',
+                'ModeChanged',
+            },
+        }
     },
+    sections = {
+        lualine_a = {'mode', 'lsp_status'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+})
 
-    ignore_focus         = {},
-    always_divide_middle = true,
-    always_show_tabline  = true,
-    globalstatus         = false,
-
-    refresh = {
-      statusline   = 1000,
-      tabline      = 1000,
-      winbar       = 1000,
-      refresh_time = 16, -- ~60fps
-      events       = {
-        'WinEnter',
-        'BufEnter',
-        'BufWritePost',
-        'SessionLoadPost',
-        'FileChangedShellPost',
-        'VimResized',
-        'Filetype',
-        'CursorMoved',
-        'CursorMovedI',
-        'ModeChanged',
-      },
-    }
-  },
-  sections = {
-    lualine_a = {'mode', 'lsp_status'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+---------------
+--Treesitter --
+---------------
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '<filetype>' },
+  callback = function() vim.treesitter.start() end,
 })
 
 ------------------------
@@ -401,12 +397,8 @@ require('lualine').setup({
 -- Colorscheme
 vim.cmd[[colorscheme tokyonight-storm]]
 
--- Trouble
-require('trouble').setup({ cmd  = 'Trouble' })
-vim.keymap.set('n', '<leader>x', '<Cmd>Trouble diagnostics toggle<CR>')
-
 -- Diffview
-vim.keymap.set('n', '<leader>d', '<Cmd>DiffviewOpen<CR>')
+vim.keymap.set('n', 'gD', '<Cmd>DiffviewOpen<CR>')
 
 -- CCC
 require('ccc').setup({
@@ -417,9 +409,9 @@ require('ccc').setup({
 })
 
 -- Range hightlight
-require("range-highlight").setup({ 
+require('range-highlight').setup({ 
     highlight = {
-        group = "Visual",
+        group = 'Visual',
         priority = 10,
         -- if you want to highlight empty line, set it to true
         to_eol = false,
@@ -433,39 +425,45 @@ require("range-highlight").setup({
 })
 
 -- Surround nvim
-require("nvim-surround").setup()
+require('nvim-surround').setup()
 
 -- EasyAlign
 vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)')
 vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)')
 
 -- Undo glow
-require('highlight-undo').setup({})
+require('highlight-undo').setup()
 
 -- Matchup
-require('match-up').setup {
+require('match-up').setup({
     treesitter = {
         stopline = 500
     }
-}
+})
 
 -- Hop
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
 hop.setup()
 vim.keymap.set('', 'f', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+    hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
 end, { remap=true })
 vim.keymap.set('', 'F', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+    hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, { remap=true })
 vim.keymap.set('', 't', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+    hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
 end, { remap=true })
 vim.keymap.set('', 'T', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+    hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 end, { remap=true })
 vim.keymap.set({ 'n', 'x', 'o'}, '-', '<Cmd>HopWord<CR>')
 
 -- Undotree
-vim.keymap.set('n', '<leader>l', vim.cmd.UndotreeToggle)
+vim.keymap.set('n', 'gl', vim.cmd.UndotreeToggle)
+
+-- Telescope
+local telescope = require('telescope.builtin')
+vim.keymap.set('n', 'gtf', telescope.find_files)
+vim.keymap.set('n', 'gtr', telescope.live_grep)
+vim.keymap.set('n', 'gtb', telescope.buffers)

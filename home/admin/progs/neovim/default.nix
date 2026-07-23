@@ -38,7 +38,6 @@
       coc-toml
       coc-vimlsp
       coc-yaml
-      cord-nvim
       diffview-nvim
       gitsigns-nvim
       highlight-undo-nvim
@@ -46,7 +45,7 @@
       lualine-nvim
       marks-nvim
       nvim-gdb
-      nvim-treesitter
+      nvim-treesitter.withAllGrammars
       nvim-web-devicons
       range-highlight-nvim
       nvim-surround
