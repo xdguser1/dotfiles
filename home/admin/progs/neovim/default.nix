@@ -33,7 +33,6 @@
       coc-pyright
       coc-rust-analyzer
       coc-sh
-      coc-spell-checker
       coc-texlab
       coc-toml
       coc-vimlsp

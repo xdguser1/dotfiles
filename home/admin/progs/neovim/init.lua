@@ -20,6 +20,7 @@ vim.opt.softtabstop = 0
 vim.opt.tabstop     = 8
 vim.opt.mouse       = ''
 
+
 --------------
 --  Keymap  --
 --------------
@@ -97,8 +98,6 @@ function _G.show_docs()
 end
 local opts_coc = {silent = true, nowait = true, expr = true}
 vim.keymap.set('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
-vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-k>"', opts_coc)
-vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-m>"', opts_coc)
 
 vim.api.nvim_create_augroup('CocGroup', {})
 vim.api.nvim_create_autocmd('CursorHold', {
@@ -340,7 +339,7 @@ require('lualine').setup({
         ignore_focus         = {},
         always_divide_middle = true,
         always_show_tabline  = true,
-        globalstatus         = false,
+        globalstatus         = true,
 
         refresh = {
             statusline   = 1000,
@@ -461,6 +460,8 @@ vim.keymap.set({ 'n', 'x', 'o'}, '-', '<Cmd>HopWord<CR>')
 
 -- Undotree
 vim.keymap.set('n', 'gl', vim.cmd.UndotreeToggle)
+vim.g.undotree_WindowLayout = 2
+vim.g.undotree_DiffAutoOpen = false
 
 -- Telescope
 local telescope = require('telescope.builtin')
