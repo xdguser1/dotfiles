@@ -465,6 +465,6 @@ vim.g.undotree_DiffAutoOpen = false
 
 -- Telescope
 local telescope = require('telescope.builtin')
-vim.keymap.set('n', 'gtf', telescope.find_files)
-vim.keymap.set('n', 'gtr', telescope.live_grep)
-vim.keymap.set('n', 'gtb', telescope.buffers)
+vim.keymap.set('n', 'gbf', telescope.find_files)
+vim.keymap.set('n', 'gbr', telescope.live_grep)
+vim.keymap.set('n', 'gbb', telescope.buffers)
