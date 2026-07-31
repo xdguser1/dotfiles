@@ -86,6 +86,11 @@ vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
 vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)',  { silent = true })
 vim.keymap.set('n', 'gr', '<Plug>(coc-references)',      { silent = true })
 
+for c in string.gmatch('ivn', '.') do
+    vim.keymap.set(c, "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', { silent = true, nowait = true, expr = true })
+    vim.keymap.set(c, "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-f>"', { silent = true, nowait = true, expr = true })
+end
+
 function _G.show_docs()
     local cw = vim.fn.expand('<cword>')
     if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then

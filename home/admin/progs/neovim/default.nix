@@ -74,6 +74,10 @@
         "explorer.previewAction.onHover"    = "labeling";
         "explorer.file.column.indent.chars" = "│ ";
         "explorer.file.child.template"      = "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified] [readonly]";
+        "signature.floatConfig.border"      = true;
+        "signature.floatConfig.rounded"     = true;
+        "hover.floatConfig.border"          = true;
+        "hover.floatConfig.rounded"         = true;
       };
     };
 
