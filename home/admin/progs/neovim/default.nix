@@ -78,6 +78,9 @@
         "signature.floatConfig.rounded"     = true;
         "hover.floatConfig.border"          = true;
         "hover.floatConfig.rounded"         = true;
+        "diagnostic.floatConfig.border"     = true;
+        "diagnostic.floatConfig.rounded"    = true;
+        "diagnostic.enableMessage"          = "trigger";
       };
     };
 

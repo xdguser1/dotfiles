@@ -78,8 +78,8 @@ vim.keymap.set('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', 
 vim.keymap.set('i', '<c-j>',     '<Plug>(coc-snippets-expand-jump)')
 vim.keymap.set('i', '<c-space>', 'coc#pum#visible() ? coc#pum#confirm() : coc#refresh()', { silent = true, expr = true })
 
-vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
-vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
+vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev-error)', { silent = true })
+vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next-error)', { silent = true })
 
 vim.keymap.set('n', 'gd', '<Plug>(coc-definition)',      { silent = true })
 vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
@@ -103,6 +103,7 @@ function _G.show_docs()
 end
 local opts_coc = {silent = true, nowait = true, expr = true}
 vim.keymap.set('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
+vim.keymap.set('n', 'gK', function() vim.fn.CocActionAsync('diagnosticPreview') end, { silent = true })
 
 vim.api.nvim_create_augroup('CocGroup', {})
 vim.api.nvim_create_autocmd('CursorHold', {
