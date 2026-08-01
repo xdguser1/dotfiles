@@ -80,7 +80,7 @@
         "hover.floatConfig.rounded"         = true;
         "diagnostic.floatConfig.border"     = true;
         "diagnostic.floatConfig.rounded"    = true;
-        "diagnostic.enableMessage"          = "trigger";
+        "diagnostic.messageDelay"           = 700;
       };
     };
 
