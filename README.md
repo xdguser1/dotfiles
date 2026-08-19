@@ -23,13 +23,15 @@ This also uses [neovim](https://neovim.io/) for pretty much everything else (e.g
 
 Finally, the bootloader is [grub](https://www.gnu.org/software/grub/) with [sddm](https://wiki.archlinux.org/title/SDDM) as a display manager. Images are manually added in `/share/images` with `bg-desktop.jpg` and `bg-sddm.jpg` the backgrounds of both the desktop and sddm. You can find screenshots [here](./docs), but images will not be shared, as it may infringe on copyright.
 
+Finally finally, I use the [colemak](https://noai.duckduckgo.com/?q=colemak&atb=v542-1&ia=images&iax=images&iai=http%3A%2F%2Fcolemak.com%2Fwiki%2Fimages%2F8%2F80%2FColemak_layout_2.png) keyboard. You probably want to change that.
+
 # Todos
 There are a few things left to do in this config. Most of them are because I have specific ideas on how this config should evolve, and it takes time to code them. So, here are the known tasks:
 
-[] Install notification daemon
-[] Install app launcher
-[] Change hyprland setup for scroll operations
-[] Solve issue with zen on startup
+- [ ] Install notification daemon
+- [ ] Install app launcher
+- [ ] Change hyprland setup for scroll operations
+- [ ] Solve issue with zen on startup
 
 For the notification daemon, I am currently working on [notifs-piper](https://github.com/xdguser1/notifs-piper) which is a replacement for [statnot](https://github.com/xdguser1/notifs-piper). This is done so to leave the possibility of a classical, graphical, notification server, while making it also possible to only show the notification in the [ags bar](./home/admin/progs/ags/).
 
