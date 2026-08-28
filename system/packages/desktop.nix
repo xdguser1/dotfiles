@@ -6,7 +6,7 @@
 {
   environment.systemPackages = with pkgs; [
     firefox
-    libreoffice-qt-fresh
+    libreoffice-qt-stable
     texliveFull
   ];
 }
