@@ -1,5 +1,6 @@
 {
   pkgs,
+  notifs-piper,
   ...
 }:
 
@@ -19,5 +20,7 @@
     viu
     wireplumber
     zsh
+  ] ++ [
+    notifs-piper.packages.${pkgs.system}.default
   ];
 }

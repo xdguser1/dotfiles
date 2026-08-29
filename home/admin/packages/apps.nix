@@ -19,7 +19,6 @@
     openocd
     qalculate-qt
     qemu
-    qtcreator
     texstudio
     typst
     xournalpp

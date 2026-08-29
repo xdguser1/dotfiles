@@ -47,10 +47,17 @@ rec {
   services.xserver.displayManager.lightdm.enable = false;
   services.displayManager.sddm.enable = true;
 
+  services.notifs-piper = {
+    enable     = true;
+    max        = 10;
+    auto-close = true;
+    timeout    = 10000;
+  };
+
   programs.hyprland = {
-    enable = true;
+    enable          = true;
     xwayland.enable = true;
-    withUWSM = true;
+    withUWSM        = true;
   };
 
   networking.hostName = "nixos";
