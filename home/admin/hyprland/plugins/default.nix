@@ -1,8 +1,8 @@
 {
   pkgs,
+  hyprland-community,
   ...
 }:
-
 {
   imports = [
     ./hypr-dynamic-cursors.nix
@@ -10,7 +10,7 @@
 
   wayland.windowManager.hyprland = {
     plugins = [
-      pkgs.hyprlandPlugins.hypr-dynamic-cursors
+      hyprland-community.hypr-dynamic-cursors.packages.${pkgs.system}.default
     ];
   };
 }

@@ -5,7 +5,6 @@
 {
   wayland.windowManager.hyprland = {
     extraConfig = ''
-      hl.bind(mod .. " + A", hl.dsp.exec_cmd(term))
       if hl.plugin.dynamic_cursors then
         hl.config({
           ["plugin"] = {
@@ -16,7 +15,7 @@
             
               ["stretch"] = {
                 ["limit"]    = 5000,
-                ["function"] = linear,
+                ["activation"] = "linear",
                 ["window"]   = 200,
               },
             
@@ -26,7 +25,7 @@
             
               ["hyprcursor"] = {
                 ["enabled"]    = true,
-                ["nearest"]    = true,
+                ["nearest"]    = 1,
                 ["resolution"] = -1,
                 ["fallback"]   = "clientside",
               },

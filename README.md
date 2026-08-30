@@ -28,7 +28,7 @@ Finally finally, I use the [colemak](https://noai.duckduckgo.com/?q=colemak&atb=
 # Todos
 There are a few things left to do in this config. Most of them are because I have specific ideas on how this config should evolve, and it takes time to code them. So, here are the known tasks:
 
-- [ ] Install notification daemon
+- [x] Install notification daemon
 - [ ] Install app launcher
 - [ ] Change hyprland setup for scroll operations
 - [ ] Solve issue with zen on startup
