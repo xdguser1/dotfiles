@@ -10,8 +10,9 @@ import AstalBluetooth from "gi://AstalBluetooth"
 import AstalHyprland from "gi://AstalHyprland"
 
 import { For, With, createBinding, createComputed, createState, onCleanup } from "ags"
-import { exec } from 'ags/process'
+import { exec } from "ags/process"
 import { createPoll } from "ags/time"
+import { createSubprocess } from "ags/process"
 
 const spacingImageText = 'margin-left: 3px;'
 
@@ -34,6 +35,7 @@ function Tray() {
   const active = createBinding(hyprland, "focusedWorkspace")
 
   const comparer = (n1: number, n2: number) => {
+    // Leaving this as such if I ever want to have something like "<<+>>" and not only "--+--"
     if (n1 < n2) {
         return "󰽤"
     } else if (n1 === n2) {
@@ -419,6 +421,25 @@ function Cpu() {
   )
 }
 
+function Notifications() {
+  const notifs = createSubprocess("", "notifs-piper watch");
+
+  return (
+    <menubutton>
+      <label label={notifs(
+        (input: string): string => {
+          if (input.substring(0, 3) === "res") {
+              return JSON.parse(input.substring(4)).summary;
+          }
+
+          return ""
+        }
+      )}
+      />
+    </menubutton>
+  )
+}
+
 function Memory() {
   const poll = createPoll("", 1000, "free")
 
@@ -601,6 +622,11 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
               <AudioOutput />
               <Mid />
               <Github />
+              <Notifications css='    opacity: 0;
+    margin-top: -20px;
+    transition:
+        opacity 300ms ease,
+        margin-top 500ms ease;' />
             </box>
   
             <box hexpand={true} css={color} />
