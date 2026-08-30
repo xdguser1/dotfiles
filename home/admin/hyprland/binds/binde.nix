@@ -29,12 +29,12 @@ in
         (lua.mkBind {
           inherit flags;
           input         = [{ val = "modOpt2"; } " + up"];
-          luaCommandStr = lua.mkMoveXY { x = 0; y = 10; };
+          luaCommandStr = lua.mkMoveXY { x = 0; y = -10; };
         })
         (lua.mkBind {
           inherit flags;
           input         = [{ val = "modOpt2"; } " + down"];
-          luaCommandStr = lua.mkMoveXY { x = 0; y = -10; };
+          luaCommandStr = lua.mkMoveXY { x = 0; y = 10; };
         })
 
         (lua.mkBind {

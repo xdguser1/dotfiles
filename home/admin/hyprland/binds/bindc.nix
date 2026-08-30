@@ -5,7 +5,6 @@
 
 let
   flags = {
-    mouse = true;
     click = true;
   };
   fls = import ../lib.nix { inherit pkgs; };
