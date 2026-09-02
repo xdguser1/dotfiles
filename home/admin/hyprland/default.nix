@@ -46,7 +46,7 @@
       code._var     = "${term._var} bash -c 'fzf | xargs nvim'";
       discord._var  = "vesktop";
       fmty._var     = "superfile";
-      img._var      = "gimp";
+      img._var      = "inkscape";
       music._var    = "nuclear";
       pen._var      = "xournalpp";
       picker._var   = "hyprpicker -a";

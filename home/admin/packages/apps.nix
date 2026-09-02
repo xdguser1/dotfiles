@@ -9,7 +9,7 @@
   ];
 
   home.packages = with pkgs; [
-    gimp
+    inkscape
     home-manager
     hyprshot
     nwg-look
