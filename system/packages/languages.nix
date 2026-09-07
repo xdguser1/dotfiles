@@ -15,6 +15,6 @@
     texliveGUST
     typescript
     valgrind
-    zulu
+    zulu25
   ];
 }
