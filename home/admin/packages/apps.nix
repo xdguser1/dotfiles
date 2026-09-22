@@ -13,10 +13,8 @@
     home-manager
     hyprshot
     nwg-look
-    nuclear
     obs-studio
     oh-my-zsh
-    openocd
     qalculate-qt
     qemu
     texstudio
@@ -24,7 +22,7 @@
     xournalpp
   ] ++ (
     with pkgs.kdePackages; [
-        okular
+      okular
     ]
   );
 }

@@ -9,6 +9,7 @@
     clipse
     exiftool
     hyperfine
+    hyprpicker
     overskride
     superfile
     wireplumber
