@@ -37,20 +37,20 @@ vim.keymap.set('n', '<space>', makeEmptyGenerator(-1))
 vim.keymap.set('n', '<enter>', makeEmptyGenerator(0))
 
 -- Arrows
-vim.keymap.set('', '<up>',    'k', { remap = true; })
-vim.keymap.set('', '<down>',  'j', { remap = true; })
-vim.keymap.set('', '<left>',  'h', { remap = true; })
-vim.keymap.set('', '<right>', 'l', { remap = true; })
+vim.keymap.set('', '<up>',    'k', { remap = true })
+vim.keymap.set('', '<down>',  'j', { remap = true })
+vim.keymap.set('', '<left>',  'h', { remap = true })
+vim.keymap.set('', '<right>', 'l', { remap = true })
 
-vim.keymap.set('', '<C-up>',    '<C-W>k', { remap = true; })
-vim.keymap.set('', '<C-down>',  '<C-W>j', { remap = true; })
-vim.keymap.set('', '<C-left>',  '<C-W>h', { remap = true; })
-vim.keymap.set('', '<C-right>', '<C-W>l', { remap = true; })
+vim.keymap.set('', '<C-up>',    '<C-W>k', { remap = true })
+vim.keymap.set('', '<C-down>',  '<C-W>j', { remap = true })
+vim.keymap.set('', '<C-left>',  '<C-W>h', { remap = true })
+vim.keymap.set('', '<C-right>', '<C-W>l', { remap = true })
 
-vim.keymap.set('', '<S-A-up>',    '<C-W>K', { remap = true; })
-vim.keymap.set('', '<S-A-down>',  '<C-W>J', { remap = true; })
-vim.keymap.set('', '<S-A-left>',  '<C-W>H', { remap = true; })
-vim.keymap.set('', '<S-A-right>', '<C-W>L', { remap = true; })
+vim.keymap.set('', '<C-W><up>',    '<C-W>K', { remap = true })
+vim.keymap.set('', '<C-W><down>',  '<C-W>J', { remap = true })
+vim.keymap.set('', '<C-W><left>',  '<C-W>H', { remap = true })
+vim.keymap.set('', '<C-W><right>', '<C-W>L', { remap = true })
 
 ---------------------
 --  Coc extension  --
