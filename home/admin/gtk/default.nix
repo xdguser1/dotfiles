@@ -41,8 +41,7 @@
   };
 
   qt = {
-    enable             = true;
-    platformTheme.name = "gtk2";
+    enable        = true;
   };
 
   home.pointerCursor = {

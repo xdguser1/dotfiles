@@ -40,11 +40,6 @@ in
       ];
     };
 
-    initrd = {
-      systemd.enable = true;
-      verbose        = false;
-    };
-
     consoleLogLevel = 3;
     kernelParams = [
       "quiet"

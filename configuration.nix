@@ -65,7 +65,7 @@ rec {
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking.networkmanager.enable = true;
 
-  time.timeZone = "America/Toronto";
+  time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_CA.UTF-8";
 

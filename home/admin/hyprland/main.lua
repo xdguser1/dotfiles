@@ -1,3 +1,5 @@
+raw_submap = "Control_R"
+
 launch = {
     calc      = "qalculate-qt",
     code      = "kitty bash -c 'fzf | xargs nvim'",
@@ -207,7 +209,7 @@ bindings = {
             { mods.main .. " +  C", hl.dsp.window.center({}), {}, },
             { mods.main .. " + equal", hl.dsp.window.fullscreen({ action = "toggle", }), },
             { mods.opt1 .. " + T", hl.dsp.group.toggle({}), {}, },
-            { mods.opt1 .. " + L", hl.dsp.group.lock_active({ action = "toggle" }), {}, },
+            { mods.opt1 .. " + L", hl.dsp.group.lock({ action = "toggle" }), {}, },
         },
     },
 
@@ -230,6 +232,7 @@ bindings = {
         { mods.raw.opt3 .. " + TAB", hl.dsp.group.next({}), {}, },
         { mods.raw.opt3 .. " + " .. mods.raw.opt1 .. " + TAB", hl.dsp.group.prev({}), {}, },
         { mods.start .. " + F", hl.dsp.submap("screenshots"), {}, },
+        { raw_submap, hl.dsp.submap("raw"), {}, },
         { mods.main .. " + E", hl.dsp.exit(), {}, },
     },
 }
@@ -275,6 +278,11 @@ hl.config({
         drag_threshold = 10,
     },
     decoration = {
+        wobble = {
+            enabled = true,
+            stiffness = 700,
+            mass = 0.4,
+        },
         active_opacity     = 0.9,
         dim_inactive       = true,
         dim_strength       = 0.25,
@@ -338,6 +346,8 @@ hl.define_submap("screenshots", function()
     hl.bind("N", exec(launch.screenshot.save.window))
     hl.bind("catchall", hl.dsp.submap("reset"))
 end)
+
+hl.define_submap("raw", function() hl.bind(raw_submap, hl.dsp.submap("reset")) end)
 
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")

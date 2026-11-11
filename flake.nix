@@ -2,7 +2,7 @@
   description = "NixOS configuration";
 
   inputs = rec {
-    nixpkgs.url = "path:/home/admin/docs/code/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
   
     nix-flatpak.url  = "https://flakehub.com/f/gmodena/nix-flatpak/0.7.0";
   
