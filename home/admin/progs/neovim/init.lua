@@ -20,7 +20,6 @@ vim.opt.softtabstop = 0
 vim.opt.tabstop     = 8
 vim.opt.mouse       = ''
 
-
 --------------
 --  Keymap  --
 --------------
@@ -52,69 +51,61 @@ vim.keymap.set('', '<C-W><down>',  '<C-W>J', { remap = true })
 vim.keymap.set('', '<C-W><left>',  '<C-W>H', { remap = true })
 vim.keymap.set('', '<C-W><right>', '<C-W>L', { remap = true })
 
----------------------
---  Coc extension  --
----------------------
--- https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.lua
-vim.opt.backup      = false
-vim.opt.writebackup = false
-vim.opt.updatetime  = 1000
-vim.opt.signcolumn  = 'yes'
-
-function _G.check_back_space()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-
-local opts = {
-    silent           = true,
-    noremap          = true,
-    expr             = true,
-    replace_keycodes = false
-}
-vim.keymap.set('i', '<TAB>',   'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-vim.keymap.set('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', opts)
-
-vim.keymap.set('i', '<c-j>',     '<Plug>(coc-snippets-expand-jump)')
-vim.keymap.set('i', '<c-space>', 'coc#pum#visible() ? coc#pum#confirm() : coc#refresh()', { silent = true, expr = true })
-
-vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev-error)', { silent = true })
-vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next-error)', { silent = true })
-
-vim.keymap.set('n', 'gd', '<Plug>(coc-definition)',      { silent = true })
-vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
-vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)',  { silent = true })
-vim.keymap.set('n', 'gr', '<Plug>(coc-references)',      { silent = true })
-
-for c in string.gmatch('ivn', '.') do
-    vim.keymap.set(c, "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', { silent = true, nowait = true, expr = true })
-    vim.keymap.set(c, "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-f>"', { silent = true, nowait = true, expr = true })
-end
-
-function _G.show_docs()
-    local cw = vim.fn.expand('<cword>')
-    if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-        vim.api.nvim_command('h ' .. cw)
-    elseif vim.api.nvim_eval('coc#rpc#ready()') then
-        vim.fn.CocActionAsync('doHover')
-    else
-        vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
-    end
-end
-local opts_coc = {silent = true, nowait = true, expr = true}
-vim.keymap.set('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
-vim.keymap.set('n', 'gK', function() vim.fn.CocActionAsync('diagnosticPreview') end, { silent = true })
-
-vim.api.nvim_create_augroup('CocGroup', {})
-vim.api.nvim_create_autocmd('CursorHold', {
-    group = 'CocGroup',
-    command = 'silent call CocActionAsync("highlight")',
-    desc = 'Highlight symbol under cursor on CursorHold'
+----------------
+--  nvim cmp  --
+----------------
+vim.lsp.inlay_hint.enable(true)
+local cmp = require('cmp')
+cmp.setup({
+    window = {
+        completion    = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+      ['<C-f>']     = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>']     = cmp.mapping.abort(),
+      ['<CR>']      = cmp.mapping.confirm({ select = true }),
+      ['<TAB>']     = cmp.mapping.select_next_item(),
+      ['<S-TAB>']   = cmp.mapping.select_prev_item(),
+    }),
+    sources = cmp.config.sources({{ name = 'nvim_lsp', }}, {{ name = 'buffer', }}),
 })
 
-vim.keymap.set('n', 'grn', '<Plug>(coc-rename)',           { silent = true })
-vim.keymap.set('x', 'gf',  '<Plug>(coc-format-selected)',  { silent = true })
-vim.keymap.set('',  'gz',  '<Cmd>CocCommand explorer<CR>', { silent = true })
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  }),
+  matching = { disallow_symbol_nonprefix_matching = false }
+})
+
+vim.lsp.config('rust_analyzer', {
+    settings = {
+        ['rust_analyzer'] = {
+            procMacro = {
+                enable = true,
+            },
+        },
+    },
+})
+
+vim.lsp.enable('jdtls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('tinymist')
+vim.lsp.enable('markdown-oxide')
+vim.lsp.enable('bashls')
 
 ----------------
 --  Gitsigns  --
@@ -475,3 +466,7 @@ vim.keymap.set('n', 'gbf', telescope.find_files)
 vim.keymap.set('n', 'gbr', telescope.live_grep)
 vim.keymap.set('n', 'gbb', telescope.buffers)
 vim.keymap.set('n', 'gbm', telescope.treesitter)
+
+-- Nvimtree
+require('nvim-tree').setup({})
+vim.keymap.set('n', 'gz', '<CMD>NvimTreeToggle<CR>')
