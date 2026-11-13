@@ -32,6 +32,7 @@
       highlight-undo-nvim
       hop-nvim
       lualine-nvim
+      lspkind-nvim
       marks-nvim
       nvim-cmp
       nvim-lspconfig
@@ -42,6 +43,7 @@
       nvim-surround
       tabby-nvim
       telescope-nvim
+      tiny-inline-diagnostic-nvim
       tokyonight-nvim
       trouble-nvim
       typst-vim

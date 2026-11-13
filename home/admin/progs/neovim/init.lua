@@ -54,23 +54,51 @@ vim.keymap.set('', '<C-W><right>', '<C-W>L', { remap = true })
 ----------------
 --  nvim cmp  --
 ----------------
+local lspkind = require('lspkind')
+lspkind.setup({})
+
+vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({
+    border     = 'rounded',
+    max_width  = 80,
+    max_height = 25,
+}) end)
 vim.lsp.inlay_hint.enable(true)
+
 local cmp = require('cmp')
 cmp.setup({
     window = {
-        completion    = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = {
+            border     = 'rounded',
+            max_height = 5,
+            max_width  = 20,
+            scrollbar  = false,
+        },
+        documentation = {
+            border = 'rounded',
+            max_height = 25,
+            max_width  = 80,
+        },
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>']     = cmp.mapping.scroll_docs(-4),
-      ['<C-f>']     = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>']     = cmp.mapping.abort(),
-      ['<CR>']      = cmp.mapping.confirm({ select = true }),
-      ['<TAB>']     = cmp.mapping.select_next_item(),
-      ['<S-TAB>']   = cmp.mapping.select_prev_item(),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>']     = cmp.mapping.abort(),
+        ['<CR>']      = cmp.mapping.confirm({ select = true }),
+        ['<TAB>']     = cmp.mapping.select_next_item(),
+        ['<S-TAB>']   = cmp.mapping.select_prev_item(),
     }),
     sources = cmp.config.sources({{ name = 'nvim_lsp', }}, {{ name = 'buffer', }}),
+    formatting = {
+        fields = { 'abbr', 'icon', 'kind', 'menu' },
+        format = lspkind.cmp_format({
+            mode     = 'text_symbol',
+            maxwidth = {
+                menu = 50,
+                abbr = 50,
+            },
+            ellipsis_char     = '...',
+            show_labelDetails = true,
+        }),
+    },
 })
 
 cmp.setup.cmdline({ '/', '?' }, {
@@ -106,6 +134,10 @@ vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('tinymist')
 vim.lsp.enable('markdown-oxide')
 vim.lsp.enable('bashls')
+
+require('tiny-inline-diagnostic').setup({
+    preset = "powerline",
+})
 
 ----------------
 --  Gitsigns  --
